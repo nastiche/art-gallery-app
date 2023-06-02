@@ -4,7 +4,7 @@ export default function Navigation() {
   return (
     <>
       <Link href={"/"}>Spotlight</Link>
-      <Link href={"/art-pieces"}>Art Piece</Link>
+      <Link href={"/art-pieces"}>Art Pieces</Link>
     </>
   );
 }
