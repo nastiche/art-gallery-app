@@ -5,7 +5,7 @@ import Spotlight from "@/components/Spotlight";
 
 // const fetcher = (URL) => fetch(URL).then((response) => response.json());
 
-export default function SportlightPage({ data }) {
+export default function SpotlightPage({ data }) {
   function getRandomPiece(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
