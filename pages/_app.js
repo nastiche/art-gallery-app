@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <Component {...pageProps} data={data} error={error} />
+      <Component {...pageProps} pieces={data} error={error} />
       <Layout />
     </>
   );
