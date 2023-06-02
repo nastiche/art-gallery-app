@@ -11,9 +11,6 @@ export default function ArtPieceDetails({
 }) {
   return (
     <div style={{ display: "grid", placeItems: "center" }}>
-      <Link href="/art-pieces" style={{ marginBottom: "10px" }}>
-        Back
-      </Link>
       <Image
         src={imageSource}
         alt={name}
@@ -22,6 +19,9 @@ export default function ArtPieceDetails({
       />
       <p style={{ margin: "3px" }}>{`${artist}: "${name}",`}</p>
       <p style={{ margin: "3px" }}>{`${year} (${genre})`}</p>
+      <Link href="/art-pieces" style={{ marginBottom: "10px" }}>
+        Back
+      </Link>
     </div>
   );
 }
