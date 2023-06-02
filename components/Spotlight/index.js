@@ -8,7 +8,6 @@ export default function Spotlight({ imageSource, artist, name, dimensions }) {
         flexDirection: "column",
         alignItems: "center",
         gap: "5px",
-        margin: "10px",
       }}
     >
       <Image

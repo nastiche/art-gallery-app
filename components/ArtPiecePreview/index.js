@@ -9,7 +9,7 @@ export default function ArtPiecePreview({
   slug,
 }) {
   return (
-    <div style={{ margin: "10px" }}>
+
       <div
         style={{
           display: "flex",
@@ -31,6 +31,6 @@ export default function ArtPiecePreview({
         <p style={{ margin: 0 }}>{name}</p>
         <p style={{ margin: 0 }}>by {artist}</p>
       </div>
-    </div>
+
   );
 }
