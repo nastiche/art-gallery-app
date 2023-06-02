@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import ArtPieces from "../ArtPieces";
-import ArtPiecePreview from "../ArtPiecePreview";
 
 // Mock data for testing
 const mockPieces = [

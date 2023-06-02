@@ -1,22 +1,21 @@
 import ArtPieceDetails from "@/components/ArtPieceDetails";
-import Link from "next/link";
+
 import { useRouter } from "next/router";
 
-export default function ArtPieceDetailsPage({ data }) {
+export default function ArtPieceDetailsPage({ pieces }) {
   const router = useRouter();
   const { slug } = router.query;
 
   console.log(slug);
-  const artPiece = data.find((artpiece) => artpiece.slug === slug);
+  const piece = pieces.find((piece) => piece.slug === slug);
 
-  if (!artPiece) {
+  if (!piece) {
     return null;
   }
 
   return (
     <>
-      <Link href="/art-pieces">Back</Link>
-      <ArtPieceDetails {...artPiece} />;
+      <ArtPieceDetails {...piece} />
     </>
   );
 }

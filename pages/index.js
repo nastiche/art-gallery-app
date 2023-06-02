@@ -5,12 +5,12 @@ import Spotlight from "@/components/Spotlight";
 
 // const fetcher = (URL) => fetch(URL).then((response) => response.json());
 
-export default function SpotlightPage({ data }) {
+export default function SpotlightPage({ pieces }) {
   function getRandomPiece(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
 
-  const randomPiece = getRandomPiece(data);
+  const randomPiece = getRandomPiece(pieces);
 
   return (
     <>
