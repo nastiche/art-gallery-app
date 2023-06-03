@@ -19,10 +19,12 @@ export default function ArtPiecePreview({
         alignItems: "center",
         gap: "5px",
         position: "relative",
-    
       }}
     >
-      <Link href={`/art-pieces/${slug}`}>
+      <Link
+        style={{ margin: "0", display: "block", height: "100%" }}
+        href={`/art-pieces/${slug}`}
+      >
         <Image
           src={imageSource}
           alt={name}

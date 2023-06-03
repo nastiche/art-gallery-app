@@ -8,15 +8,39 @@ export default function Navigation() {
         justifyContent: "space-around",
         position: "fixed",
         bottom: 0,
-
         left: 0,
         width: "100%",
-        backgroundColor: "#ffffff",
+        backgroundColor: "black",
         padding: "10px",
       }}
     >
-      <Link href={"/"}>Spotlight</Link>
-      <Link href={"/art-pieces"}>Art Pieces</Link>
+      <Link
+        style={{
+          color: "white",
+          textDecoration: "none",
+        }}
+        href={"/"}
+      >
+        Spotlight
+      </Link>
+      <Link
+        style={{
+          color: "white",
+          textDecoration: "none",
+        }}
+        href={"/art-pieces"}
+      >
+        Art Pieces
+      </Link>
+      {/* <Link
+        style={{
+          color: "white",
+          textDecoration: "none",
+        }}
+        href={"/favorites"}
+      >
+        Favorites
+      </Link> */}
     </div>
   );
 }

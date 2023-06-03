@@ -51,6 +51,11 @@ export default function Spotlight({
           bottom: "180px",
           left: "50%",
           transform: "translateX(-50%)",
+          backgroundColor: "black",
+          color: "white",
+          border: "solid 1px black",
+          borderRadius: "5px",
+          padding: "5px",
         }}
         onClick={() => onRandomPiece()}
       >
