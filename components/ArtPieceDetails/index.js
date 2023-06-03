@@ -23,6 +23,7 @@ export default function ArtPieceDetails({
             alignItems: "center",
             gap: "5px",
             position: "relative",
+            marginTop: "20px",
           }}
         >
           <Image
@@ -36,10 +37,27 @@ export default function ArtPieceDetails({
             onToggleFavorite={onToggleFavorite}
             slug={slug}
           />
-          <p style={{ marginTop: "3.3px" }}>{`"${name}"`}</p>
+          <p
+            style={{ marginTop: "3.3px", marginBottom: "0px" }}
+          >{`"${name}"`}</p>
           <p style={{ margin: "0" }}>by {artist}</p>
           <p style={{ margin: "0" }}>{`${year} (${genre})`}</p>
-          <Link href="/art-pieces" style={{ margin: "20px" }}>
+          <Link
+            href="/art-pieces"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: "30px",
+              border: "solid 1px black",
+              borderRadius: "5px",
+              backgroundColor: "black",
+              width: "80px",
+              height: "30px",
+              color: "white",
+              textDecoration: "none",
+            }}
+          >
             Back
           </Link>
         </div>

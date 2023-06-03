@@ -19,6 +19,7 @@ export default function ArtPiecePreview({
         alignItems: "center",
         gap: "5px",
         position: "relative",
+        marginTop: "20px",
       }}
     >
       <Link

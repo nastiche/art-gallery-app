@@ -28,6 +28,7 @@ export default function Spotlight({
           alignItems: "center",
           gap: "5px",
           position: "relative",
+          marginTop: "20px",
         }}
       >
         <Image
@@ -42,20 +43,21 @@ export default function Spotlight({
           slug={slug}
         />
 
-        <p style={{ margin: 0 }}>{`"${name}"`}</p>
+        <p style={{ marginTop: "3.3px", marginBottom: "0px" }}>{`"${name}"`}</p>
         <p style={{ margin: 0 }}>by {artist}</p>
       </div>
       <button
         style={{
           position: "absolute",
-          bottom: "180px",
+          bottom: "140px",
           left: "50%",
           transform: "translateX(-50%)",
           backgroundColor: "black",
           color: "white",
           border: "solid 1px black",
           borderRadius: "5px",
-          padding: "5px",
+          padding: "7px 14px",
+          fontSize: "1rem",
         }}
         onClick={() => onRandomPiece()}
       >
