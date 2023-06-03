@@ -15,14 +15,17 @@ export default createGlobalStyle`
   ul li {
   list-style: none;
   padding: 0;
+  width: 100%;
 }
- ul li {
-  list-style: none;
-  padding: 0;
-}
+
 ul {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 `;

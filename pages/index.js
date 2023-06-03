@@ -1,20 +1,33 @@
-import ArtPieces from "@/components/ArtPieces";
 import Spotlight from "@/components/Spotlight";
+import { useEffect, useState } from "react";
 
-// const URL = `https://example-apis.vercel.app/api/art`;
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
+}
 
-// const fetcher = (URL) => fetch(URL).then((response) => response.json());
+export default function SpotlightPage({ pieces, onToggleFavorite }) {
+  const [randomIndex, setRandomIndex] = useState(-1);
+  const [indexLoaded, setIndexLoaded] = useState(false);
 
-export default function SpotlightPage({ pieces }) {
-  function getRandomPiece(array) {
-    return array[Math.floor(Math.random() * array.length)];
+  useEffect(() => {
+    setRandomIndex(getRandomIndex(pieces));
+    setIndexLoaded(true);
+    // console.log(pieceLoaded);
+  }, []);
+
+  function onRandomPiece() {
+    setRandomIndex(getRandomIndex(pieces));
   }
 
-  const randomPiece = getRandomPiece(pieces);
-
+  if (!indexLoaded) return <div>...loading</div>;
   return (
     <>
-      <Spotlight {...randomPiece} />
+      <Spotlight
+        randomIndex={randomIndex}
+        pieces={pieces}
+        onToggleFavorite={onToggleFavorite}
+        onRandomPiece={onRandomPiece}
+      />
     </>
   );
 }

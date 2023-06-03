@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FavoriteButton } from "../FavoriteButton";
 
 export default function ArtPiecePreview({
   imageSource,
   name,
   artist,
   dimensions,
+  isFavorite,
+  onToggleFavorite,
   slug,
 }) {
   return (
@@ -15,18 +18,24 @@ export default function ArtPiecePreview({
         flexDirection: "column",
         alignItems: "center",
         gap: "5px",
+        position: "relative",
+    
       }}
     >
       <Link href={`/art-pieces/${slug}`}>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Image
-            src={imageSource}
-            alt={name}
-            width={dimensions.width * 0.1}
-            height={dimensions.height * 0.1}
-          />
-        </div>
+        <Image
+          src={imageSource}
+          alt={name}
+          width={dimensions.width * 0.1}
+          height={dimensions.height * 0.1}
+        />
       </Link>
+      <FavoriteButton
+        isFavorite={isFavorite}
+        onToggleFavorite={onToggleFavorite}
+        slug={slug}
+      />
+
       <p style={{ margin: 0 }}>{`"${name}"`}</p>
       <p style={{ margin: 0 }}>by {artist}</p>
     </div>
