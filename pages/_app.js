@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import GlobalStyle from "../styles";
 import useSWR from "swr";
+import { useImmerLocalStorageState } from "@/public/useImmerLocalStorageState";
 
 const URL = `https://example-apis.vercel.app/api/art`;
 
@@ -11,32 +12,75 @@ export default function App({ Component, pageProps }) {
   const { data, error } = useSWR(URL, fetcher);
   const isLoading = !data && !error;
 
-  const [artPiecesInfo, setArtPiecesInfo] = useState([]);
+  const [artPiecesInfo, updateArtPiecesInfo] = useImmerLocalStorageState(
+    "art-pieces-info",
+    { defaultValue: [] }
+  );
 
   useEffect(() => {
-    if (data) {
+    const storedData = localStorage.getItem("art-pieces-info");
+    if (storedData && storedData !== "[]") {
+      const parsedData = JSON.parse(storedData);
+      updateArtPiecesInfo(parsedData);
+    } else if (data) {
       const updatedPieces = data.map((piece) => ({
         ...piece,
         isFavorite: false,
+        comments: [],
       }));
 
-      setArtPiecesInfo(updatedPieces);
+      updateArtPiecesInfo(updatedPieces);
     }
   }, [data]);
 
+  console.log(artPiecesInfo);
+
   function handleToggleFavorite(pieceSlug) {
-    setArtPiecesInfo((prevArtPiecesInfo) =>
+    updateArtPiecesInfo((prevArtPiecesInfo) =>
       prevArtPiecesInfo.map((piece) =>
         piece.slug === pieceSlug
           ? { ...piece, isFavorite: !piece.isFavorite }
           : piece
       )
     );
+    setTimeout(() => {
+      localStorage.setItem("art-pieces-info", JSON.stringify(artPiecesInfo));
+    }, 0);
+  }
+  function handleSubmitComment(event, slug) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+
+    const date = new Date().toLocaleDateString("en-us", {
+      dateStyle: "medium",
+    });
+
+    const commentDisplay = `"${data.comment}", (${date})`;
+
+    updateArtPiecesInfo((prevArtPiecesInfo) =>
+      prevArtPiecesInfo.map((piece) =>
+        piece.slug === slug
+          ? { ...piece, comments: piece.comments.concat(commentDisplay) }
+          : piece
+      )
+    );
+
+    updateArtPiecesInfo((updatedArtPiecesInfo) => {
+      localStorage.setItem(
+        "art-pieces-info",
+        JSON.stringify(updatedArtPiecesInfo)
+      );
+      return updatedArtPiecesInfo;
+    });
+
+    event.target.reset();
+    event.target.focus();
   }
 
-  useEffect(() => {
-    console.log(artPiecesInfo);
-  }, [artPiecesInfo]);
+  // useEffect(() => {
+  //   console.log(artPiecesInfo);
+  // }, [artPiecesInfo]);
 
   if (error) {
     return <div>ERROR: failed to load.</div>;
@@ -54,6 +98,7 @@ export default function App({ Component, pageProps }) {
           {...pageProps}
           pieces={artPiecesInfo}
           onToggleFavorite={handleToggleFavorite}
+          onSubmitComment={handleSubmitComment}
         />
       ) : (
         <></>

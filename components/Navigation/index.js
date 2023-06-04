@@ -32,7 +32,7 @@ export default function Navigation() {
       >
         Art Pieces
       </Link>
-      {/* <Link
+      <Link
         style={{
           color: "white",
           textDecoration: "none",
@@ -40,7 +40,7 @@ export default function Navigation() {
         href={"/favorites"}
       >
         Favorites
-      </Link> */}
+      </Link>
     </div>
   );
 }

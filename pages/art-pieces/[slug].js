@@ -2,7 +2,11 @@ import ArtPieceDetails from "@/components/ArtPieceDetails";
 
 import { useRouter } from "next/router";
 
-export default function ArtPieceDetailsPage({ pieces, onToggleFavorite }) {
+export default function ArtPieceDetailsPage({
+  pieces,
+  onToggleFavorite,
+  onSubmitComment,
+}) {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -11,7 +15,11 @@ export default function ArtPieceDetailsPage({ pieces, onToggleFavorite }) {
   if (!piece) return <div>...loading</div>;
   return (
     <>
-      <ArtPieceDetails {...piece} onToggleFavorite={onToggleFavorite} />
+      <ArtPieceDetails
+        {...piece}
+        onToggleFavorite={onToggleFavorite}
+        onSubmitComment={onSubmitComment}
+      />
     </>
   );
 }
