@@ -33,8 +33,6 @@ export default function App({ Component, pageProps }) {
     }
   }, [data]);
 
-
-
   function handleToggleFavorite(pieceSlug) {
     updateArtPiecesInfo((prevArtPiecesInfo) =>
       prevArtPiecesInfo.map((piece) =>
@@ -43,9 +41,13 @@ export default function App({ Component, pageProps }) {
           : piece
       )
     );
-    setTimeout(() => {
-      localStorage.setItem("art-pieces-info", JSON.stringify(artPiecesInfo));
-    }, 0);
+    updateArtPiecesInfo((updatedArtPiecesInfo) => {
+      localStorage.setItem(
+        "art-pieces-info",
+        JSON.stringify(updatedArtPiecesInfo)
+      );
+      return updatedArtPiecesInfo;
+    });
   }
   function handleSubmitComment(event, slug) {
     event.preventDefault();
@@ -78,9 +80,9 @@ export default function App({ Component, pageProps }) {
     event.target.focus();
   }
 
-  // useEffect(() => {
-  //   console.log(artPiecesInfo);
-  // }, [artPiecesInfo]);
+  useEffect(() => {
+    console.log(artPiecesInfo);
+  }, [artPiecesInfo]);
 
   if (error) {
     return <div>ERROR: failed to load.</div>;

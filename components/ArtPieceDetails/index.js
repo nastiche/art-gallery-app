@@ -66,7 +66,7 @@ export default function ArtPieceDetails({
           flexDirection: "column",
         }}
       >
-        {colors.map((color) => (
+        {colors.map((color, index) => (
           <div
             style={{
               backgroundColor: color,
@@ -74,7 +74,7 @@ export default function ArtPieceDetails({
               height: "30px",
               marginBottom: "10px",
             }}
-            key={`${slug}${name}`}
+            key={index}
           ></div>
         ))}
       </div>
