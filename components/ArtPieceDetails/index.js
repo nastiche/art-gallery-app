@@ -74,10 +74,11 @@ export default function ArtPieceDetails({
               height: "30px",
               marginBottom: "10px",
             }}
+            key={`${slug}${name}`}
           ></div>
         ))}
       </div>
-      <Comments comments={comments} slug={slug} />
+      <Comments comments={comments} slug={slug} name={name} />
       <div style={{ marginTop: "auto", marginBottom: "70px" }}>
         <CommentForm onSubmitComment={onSubmitComment} slug={slug} />
       </div>

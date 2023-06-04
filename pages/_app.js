@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
     }
   }, [data]);
 
-  console.log(artPiecesInfo);
+
 
   function handleToggleFavorite(pieceSlug) {
     updateArtPiecesInfo((prevArtPiecesInfo) =>
