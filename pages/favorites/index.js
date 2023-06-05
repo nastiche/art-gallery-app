@@ -10,9 +10,12 @@ export default function FavoritesPage({
 
   useEffect(() => {
     if (artPiecesInfo && pieces) {
-      const filteredPieces = pieces.filter((piece) =>
-        artPiecesInfo.some((pieceInfo) => pieceInfo.slug === piece.slug)
-      );
+      const filteredPieces = pieces.filter((piece) => {
+        const pieceInfo = artPiecesInfo.find(
+          (info) => info.slug === piece.slug
+        );
+        return pieceInfo && pieceInfo.isFavorite;
+      });
       setFavoritePieces(filteredPieces);
     }
   }, [artPiecesInfo, pieces]);
