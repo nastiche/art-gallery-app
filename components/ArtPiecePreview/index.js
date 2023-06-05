@@ -7,9 +7,10 @@ export default function ArtPiecePreview({
   name,
   artist,
   dimensions,
-  isFavorite,
+
   onToggleFavorite,
   slug,
+  artPiecesInfo,
 }) {
   return (
     <div
@@ -34,7 +35,12 @@ export default function ArtPiecePreview({
         />
       </Link>
       <FavoriteButton
-        isFavorite={isFavorite}
+        isFavorite={
+          artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+            ? artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+                .isFavorite
+            : false
+        }
         onToggleFavorite={onToggleFavorite}
         slug={slug}
       />

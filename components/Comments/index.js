@@ -1,4 +1,5 @@
-export default function Comments({ comments, slug, name }) {
+export default function Comments({ comments }) {
+  // console.log(comments);
   return (
     <div style={{ width: "300px", marginTop: "40px" }}>
       <p style={{ margin: "0", marginBottom: "5px" }}>Comments:</p>

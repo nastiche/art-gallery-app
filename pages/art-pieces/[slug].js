@@ -3,6 +3,7 @@ import ArtPieceDetails from "@/components/ArtPieceDetails";
 import { useRouter } from "next/router";
 
 export default function ArtPieceDetailsPage({
+  artPiecesInfo,
   pieces,
   onToggleFavorite,
   onSubmitComment,
@@ -19,6 +20,7 @@ export default function ArtPieceDetailsPage({
         {...piece}
         onToggleFavorite={onToggleFavorite}
         onSubmitComment={onSubmitComment}
+        artPiecesInfo={artPiecesInfo}
       />
     </>
   );

@@ -5,7 +5,11 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-export default function SpotlightPage({ pieces, onToggleFavorite }) {
+export default function SpotlightPage({
+  artPiecesInfo,
+  pieces,
+  onToggleFavorite,
+}) {
   const [randomIndex, setRandomIndex] = useState(-1);
   const [indexLoaded, setIndexLoaded] = useState(false);
 
@@ -25,6 +29,7 @@ export default function SpotlightPage({ pieces, onToggleFavorite }) {
       <Spotlight
         randomIndex={randomIndex}
         pieces={pieces}
+        artPiecesInfo={artPiecesInfo}
         onToggleFavorite={onToggleFavorite}
         onRandomPiece={onRandomPiece}
       />

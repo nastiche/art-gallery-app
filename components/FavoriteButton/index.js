@@ -9,7 +9,7 @@ export function FavoriteButton({ isFavorite, onToggleFavorite, slug }) {
         backgroundColor: "transparent",
         border: "none",
       }}
-      onClick={() => {
+      onClick={(event) => {
         onToggleFavorite(slug);
       }}
     >
