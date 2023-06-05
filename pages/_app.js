@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Layout from "@/components/Layout";
 import GlobalStyle from "../styles";
-import useSWR from "swr";
+import useSWR, { SWRConfig } from "swr";
 import { useImmerLocalStorageState } from "@/public/useImmerLocalStorageState";
 
 const URL = `https://example-apis.vercel.app/api/art`;
@@ -17,70 +17,63 @@ export default function App({ Component, pageProps }) {
     { defaultValue: [] }
   );
 
-  useEffect(() => {
-    const storedData = localStorage.getItem("art-pieces-info");
-    if (storedData && storedData !== "[]") {
-      const parsedData = JSON.parse(storedData);
-      updateArtPiecesInfo(parsedData);
-    } else if (data) {
-      const updatedPieces = data.map((piece) => ({
-        ...piece,
-        isFavorite: false,
-        comments: [],
-      }));
-
-      updateArtPiecesInfo(updatedPieces);
-    }
-  }, [data]);
-
-
-
   function handleToggleFavorite(pieceSlug) {
-    updateArtPiecesInfo((prevArtPiecesInfo) =>
-      prevArtPiecesInfo.map((piece) =>
-        piece.slug === pieceSlug
-          ? { ...piece, isFavorite: !piece.isFavorite }
-          : piece
-      )
-    );
-    setTimeout(() => {
-      localStorage.setItem("art-pieces-info", JSON.stringify(artPiecesInfo));
-    }, 0);
+    updateArtPiecesInfo((prevArtPiecesInfo) => {
+      const pieceInfo = prevArtPiecesInfo.find(
+        (pieceInfo) => pieceInfo.slug === pieceSlug
+      );
+
+      if (pieceInfo) {
+        return artPiecesInfo.map((pieceInfo) =>
+          pieceInfo.slug === pieceSlug
+            ? { ...pieceInfo, isFavorite: !pieceInfo.isFavorite }
+            : pieceInfo
+        );
+      }
+      return [
+        ...artPiecesInfo,
+        { slug: pieceSlug, isFavorite: true, comments: [] },
+      ];
+    });
   }
-  function handleSubmitComment(event, slug) {
+
+  function handleSubmitComment(event, pieceSlug) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-
+    const inputData = Object.fromEntries(formData);
     const date = new Date().toLocaleDateString("en-us", {
       dateStyle: "medium",
     });
 
-    const commentDisplay = `"${data.comment}", (${date})`;
-
-    updateArtPiecesInfo((prevArtPiecesInfo) =>
-      prevArtPiecesInfo.map((piece) =>
-        piece.slug === slug
-          ? { ...piece, comments: piece.comments.concat(commentDisplay) }
-          : piece
-      )
-    );
-
-    updateArtPiecesInfo((updatedArtPiecesInfo) => {
-      localStorage.setItem(
-        "art-pieces-info",
-        JSON.stringify(updatedArtPiecesInfo)
+    const commentDisplay = `"${inputData.comment}", (${date})`;
+    updateArtPiecesInfo((prevArtPiecesInfo) => {
+      const pieceInfo = prevArtPiecesInfo.find(
+        (pieceInfo) => pieceInfo.slug === pieceSlug && pieceInfo.comments
       );
-      return updatedArtPiecesInfo;
-    });
 
+      if (pieceInfo) {
+        return artPiecesInfo.map((pieceInfo) =>
+          pieceInfo.slug === pieceSlug
+            ? {
+                ...pieceInfo,
+                comments: pieceInfo.comments.concat(commentDisplay),
+              }
+            : pieceInfo
+        );
+      }
+
+      return [
+        ...artPiecesInfo,
+        { slug: pieceSlug, comments: [commentDisplay], isFavorite: false },
+      ];
+    });
     event.target.reset();
     event.target.focus();
   }
 
   // useEffect(() => {
-  //   console.log(artPiecesInfo);
-  // }, [artPiecesInfo]);
+  //   console.log(data, artPiecesInfo);
+  // }, [data]);
 
   if (error) {
     return <div>ERROR: failed to load.</div>;
@@ -91,18 +84,17 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
+    // <SWRConfig value={{ fetcher, refreshInterval: 1000 }}>
     <>
       <GlobalStyle />
-      {artPiecesInfo && artPiecesInfo.length > 0 ? (
-        <Component
-          {...pageProps}
-          pieces={artPiecesInfo}
-          onToggleFavorite={handleToggleFavorite}
-          onSubmitComment={handleSubmitComment}
-        />
-      ) : (
-        <></>
-      )}
+
+      <Component
+        {...pageProps}
+        pieces={data}
+        artPiecesInfo={artPiecesInfo}
+        onToggleFavorite={handleToggleFavorite}
+        onSubmitComment={handleSubmitComment}
+      />
 
       <Layout />
     </>

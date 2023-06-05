@@ -5,13 +5,14 @@ import { FavoriteButton } from "../FavoriteButton";
 export default function Spotlight({
   randomIndex,
   pieces,
+  artPiecesInfo,
   onToggleFavorite,
   onRandomPiece,
 }) {
   // if (!randomPiece) return <div>...loading</div>;
   // console.log(randomPiece);
-  const { imageSource, name, dimensions, artist, slug, isFavorite } =
-    pieces[randomIndex];
+  const { imageSource, name, dimensions, artist, slug } = pieces[randomIndex];
+
   return (
     <div
       style={{
@@ -38,7 +39,12 @@ export default function Spotlight({
           height={dimensions.height * 0.1}
         />
         <FavoriteButton
-          isFavorite={isFavorite}
+          isFavorite={
+            artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+              ? artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+                  .isFavorite
+              : false
+          }
           onToggleFavorite={onToggleFavorite}
           slug={slug}
         />

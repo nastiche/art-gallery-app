@@ -12,11 +12,10 @@ export default function ArtPieceDetails({
   genre,
   dimensions,
   slug,
-  comments,
   colors,
-  isFavorite,
   onToggleFavorite,
   onSubmitComment,
+  artPiecesInfo,
 }) {
   return (
     <div
@@ -49,7 +48,12 @@ export default function ArtPieceDetails({
         height={dimensions.height * 0.1}
       />
       <FavoriteButton
-        isFavorite={isFavorite}
+        isFavorite={
+          artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+            ? artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+                .isFavorite
+            : false
+        }
         onToggleFavorite={onToggleFavorite}
         slug={slug}
       />
@@ -66,7 +70,7 @@ export default function ArtPieceDetails({
           flexDirection: "column",
         }}
       >
-        {colors.map((color) => (
+        {colors.map((color, index) => (
           <div
             style={{
               backgroundColor: color,
@@ -74,11 +78,20 @@ export default function ArtPieceDetails({
               height: "30px",
               marginBottom: "10px",
             }}
-            key={`${slug}${name}`}
+            key={index}
           ></div>
         ))}
       </div>
-      <Comments comments={comments} slug={slug} name={name} />
+      <Comments
+        comments={
+          artPiecesInfo.find(
+            (pieceInfo) => pieceInfo.slug === slug && pieceInfo.comments
+          )
+            ? artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+                .comments
+            : []
+        }
+      />
       <div style={{ marginTop: "auto", marginBottom: "70px" }}>
         <CommentForm onSubmitComment={onSubmitComment} slug={slug} />
       </div>
