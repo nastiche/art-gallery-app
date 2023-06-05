@@ -19,19 +19,27 @@ export default function App({ Component, pageProps }) {
 
   function handleToggleFavorite(pieceSlug) {
     updateArtPiecesInfo((prevArtPiecesInfo) => {
-      const pieceInfo = prevArtPiecesInfo.find(
+      const pieceIndex = prevArtPiecesInfo.findIndex(
         (pieceInfo) => pieceInfo.slug === pieceSlug
       );
 
-      if (pieceInfo) {
-        return artPiecesInfo.map((pieceInfo) =>
-          pieceInfo.slug === pieceSlug
-            ? { ...pieceInfo, isFavorite: !pieceInfo.isFavorite }
-            : pieceInfo
-        );
+      if (pieceIndex !== -1) {
+        const pieceInfo = prevArtPiecesInfo[pieceIndex];
+        if (pieceInfo.hasOwnProperty("isFavorite")) {
+          return prevArtPiecesInfo.map((piece, index) =>
+            index === pieceIndex
+              ? { ...piece, isFavorite: !piece.isFavorite }
+              : piece
+          );
+        } else {
+          return prevArtPiecesInfo.map((piece, index) =>
+            index === pieceIndex ? { ...piece, isFavorite: true } : piece
+          );
+        }
       }
+
       return [
-        ...artPiecesInfo,
+        ...prevArtPiecesInfo,
         { slug: pieceSlug, isFavorite: true, comments: [] },
       ];
     });
@@ -51,7 +59,7 @@ export default function App({ Component, pageProps }) {
         (pieceInfo) => pieceInfo.slug === pieceSlug && pieceInfo.comments
       );
 
-      if (pieceInfo) {
+      if (pieceInfo && pieceInfo.hasOwnProperty("comments")) {
         return artPiecesInfo.map((pieceInfo) =>
           pieceInfo.slug === pieceSlug
             ? {
