@@ -39,25 +39,36 @@ export default function ArtPieceDetails({
           left: "10px",
         }}
       >
-        🔙{" "}
+        <Image
+          src="/back.png"
+          alt="go to the previous page"
+          width="50"
+          height="50"
+        />
       </Link>
-      <Image
-        src={imageSource}
-        alt={name}
-        width={dimensions.width * 0.1}
-        height={dimensions.height * 0.1}
-      />
-      <FavoriteButton
-        isFavorite={
-          artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
-            ? artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
-                .isFavorite
-            : false
-        }
-        onToggleFavorite={onToggleFavorite}
-        slug={slug}
-      />
-
+      <div
+        style={{
+          border: "solid 10px black",
+          padding: "4px 4px 0",
+        }}
+      >
+        <Image
+          src={imageSource}
+          alt={name}
+          width={dimensions.width * 0.1}
+          height={dimensions.height * 0.1}
+        />
+        <FavoriteButton
+          isFavorite={
+            artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+              ? artPiecesInfo.find((pieceInfo) => pieceInfo.slug === slug)
+                  .isFavorite
+              : false
+          }
+          onToggleFavorite={onToggleFavorite}
+          slug={slug}
+        />
+      </div>
       <p style={{ marginTop: "3.3px", marginBottom: "0px" }}>{`"${name}"`}</p>
       <p style={{ margin: "0" }}>by {artist}</p>
       <p style={{ margin: "0" }}>{`${year} (${genre})`}</p>
