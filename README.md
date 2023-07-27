@@ -1,6 +1,6 @@
 Art Gallery App
 
-![art-gallery-app](public/art-gallery-app.png)
+![art-gallery-app](public/art-gallery-app-screenshot.png)
 
 ### Local development
 
