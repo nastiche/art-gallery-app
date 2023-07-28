@@ -1,4 +1,4 @@
-Art Gallery App
+# Art Gallery App
 
 ![art-gallery-app](public/art-gallery-app.png)
 
